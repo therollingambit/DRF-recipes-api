@@ -1,6 +1,8 @@
+# Dockerfile to build our image
+
 # alpine is great and lightweight for docker
 FROM python:3.9-alpine3.13
-LABEL maintainers="ahmadenaya"
+LABEL maintainer="ahmadenaya"
 
 ENV PYTHONUNBUFFERED 1
 
@@ -20,13 +22,13 @@ RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
     /py/bin/pip install -r /tmp/requirements.txt && \
     if [ $DEV = "true" ]; \
-      then /py/bin/pip install -r /tmp/requirements.dev.txt ; \
+        then /py/bin/pip install -r /tmp/requirements.dev.txt ; \
     fi && \
     rm -rf /tmp && \
     adduser \
-      --disabled-password \
-      --no-create-home \
-      django-user
+        --disabled-password \
+        --no-create-home \
+        django-user
 
 # where executables are run
 ENV PATH="/py/bin:$PATH"
